@@ -19,7 +19,7 @@ target = "assets"
 # Mount hugo_stats.json so Tailwind CSS can scan template files for classes.
 source = "hugo_stats.json"
 target = "assets/notwatching/hugo_stats.json"
-disableWatch = true                           # Optional, but recommended for this file
+disableWatch = true                          
 
 [build]
 # Generate hugo_stats.json

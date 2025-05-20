@@ -1,9 +1,8 @@
-# flake.nix
 {
   description = "Development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; # Or choose a specific release like nixos-23.11
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; 
   };
 
   outputs = { self, nixpkgs }:
