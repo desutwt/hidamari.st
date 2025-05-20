@@ -1,0 +1,26 @@
+{{ define "main" }}
+    {{ $headerData := dict
+        "userName" .Site.Params.Author.name
+        "profileImageUrl" .Site.Params.Author.avatar
+    }}
+    {{ partial "profile-card" $headerData }}
+    <div class="border-t border-gray-500 p-4 sm:p-6">
+        {{ if and .Title (eq .Section "articles") }}
+            <h3 data-pagefind-body data-pagefind-meta="title">{{ .Title }}</h3>
+        {{ end }}
+
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
+            class="mb-3 block text-sm text-gray-500"
+            {{ if not .Title }}data-pagefind-meta="title" {{ end }}
+            >
+            {{ .Date.Format "January 2, 2006 15:04" }}
+        </time>
+
+        <p
+            data-pagefind-body
+            data-pagefind-filter="section:{{ .Section }}"
+            data-pagefind-sort="date:{{ .Date.Format "2006-01-02" }}"
+            class="text-gray-700"
+        >{{ .Content }}</p>
+    </div>
+{{ end }}

@@ -1,0 +1,23 @@
+<div class="border-b border-gray-500">
+    <a href="{{ .RelPermalink }}" class="block pb-8 pt-8 pl-4 sm:pl-6 pr-4 sm:pr-6 no-underline hover:bg-gray-50 group">
+        {{ if and .Title (eq .Section "articles") }}
+            <h3>{{ .Title }}</h3>
+        {{ end }}
+
+        <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}"
+              class="mb-3 block text-sm text-gray-500">
+            {{ .Date.Format "January 2, 2006 15:04" }}
+        </time>
+
+        {{ if .Summary }}
+            {{ $plainSummary := .Summary | plainify }}
+            {{ $truncated := .Summary | truncate 250 "" }}
+            <p class="text-gray-700">
+                {{ $truncated }}
+            </p>
+            {{ if gt (len $plainSummary) 250 }}
+                <p class="text-blue-500 hover:underline mt-2">Read more &xrarr;</p>
+            {{ end }}
+        {{ end }}
+    </a>
+</div>

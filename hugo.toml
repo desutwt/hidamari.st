@@ -1,0 +1,45 @@
+baseURL = 'https://hidamari.st/'
+languageCode = 'en-us'
+title = 'hidamarid'
+theme = 'hidamarid'
+
+[pagination]
+pagerSize = 20
+
+[params]
+[params.Author]
+name = "hidamarid"
+avatar = "/profile/profile.webp"
+
+
+[[module.mounts]]
+source = "assets"
+target = "assets"
+[[module.mounts]]
+# Mount hugo_stats.json so Tailwind CSS can scan template files for classes.
+source = "hugo_stats.json"
+target = "assets/notwatching/hugo_stats.json"
+disableWatch = true                           # Optional, but recommended for this file
+
+[build]
+# Generate hugo_stats.json
+writeStats = true
+[build.buildStats]
+enable = true # Ensure stats are built
+
+[[build.cachebusters]]
+# Trigger CSS rebuilds when hugo_stats.json changes
+source = "assets/notwatching/hugo_stats\\.json"
+target = "css"
+[[build.cachebusters]]
+# Trigger CSS rebuilds when Tailwind/PostCSS config changes
+source = "(postcss|tailwind)\\.config\\.js"
+target = "css"
+[[build.cachebusters]]
+# Trigger CSS rebuilds when layout HTML changes
+source = "layouts/.*\\.html"
+target = "css"
+[[build.cachebusters]]
+# Trigger CSS rebuilds when content changes (might be overly aggressive depending on setup)
+source = "content/.*\\.(md|html)"
+target = "css"

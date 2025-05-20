@@ -1,0 +1,15 @@
+{{ define "main" }}
+    {{ $headerData := dict
+        "userName" .Site.Params.Author.name
+        "profileImageUrl" .Site.Params.Author.avatar
+    }}
+    {{ partial "profile-card" $headerData }}
+    {{ partial "tabs" . }}
+
+    {{ $pages := where .Site.RegularPages "Section" .Section }}
+    {{ $paginator := .Paginate $pages }}
+
+    {{ partial "timeline" (dict "Pages" $paginator.Pages) }}
+
+    {{ partial "pagination.html" . }}
+{{ end }}

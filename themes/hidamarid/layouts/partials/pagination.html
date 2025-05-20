@@ -1,0 +1,92 @@
+{{ $paginator := .Paginator }}
+
+{{ if gt $paginator.TotalPages 1 }}
+    <nav
+        class="pagination my-8 text-center"
+        role="navigation"
+        aria-label="Pagination"
+    >
+        <ul
+            class="pagination-list inline-flex list-none items-center justify-center space-x-1 rounded p-0 m-0 md:space-x-2"
+        >
+            {{/* Previous Page Link */}}
+            {{ if $paginator.HasPrev }}
+                <li class="pagination-previous">
+                    <a
+                        href="{{ $paginator.Prev.URL }}"
+                        rel="prev"
+                        aria-label="Previous Page"
+                        class="inline-block rounded border border-gray-300 px-3 py-1 text-sm text-blue-600 hover:bg-gray-100 hover:text-blue-800 md:px-4 md:py-2 md:text-base"
+                    >
+                        &laquo;
+                        <span class="hidden sm:inline">Previous</span>
+                        {{/* Hide text on very small screens */}}
+                    </a>
+                </li>
+            {{ else }}
+                <li class="pagination-previous" aria-disabled="true">
+                    <span
+                        class="inline-block cursor-not-allowed rounded border border-gray-200 px-3 py-1 text-sm text-gray-400 md:px-4 md:py-2 md:text-base"
+                    >
+                        &laquo; <span class="hidden sm:inline">Previous</span>
+                    </span>
+                </li>
+            {{ end }}
+
+            {{/* Page Number Links - Consider Hugo's internal template or a more complex range */}}
+            {{ range $paginator.Pagers }}
+                {{ if eq . $paginator }}
+                    {{/* Current Page */}}
+                    <li
+                        class="pagination-link is-current"
+                        aria-label="Page {{ .PageNumber }}"
+                        aria-current="page"
+                    >
+                        <span
+                            class="inline-block rounded border border-blue-600 bg-blue-600 px-3 py-1 text-sm font-semibold text-white md:px-4 md:py-2 md:text-base"
+                            >{{ .PageNumber }}</span
+                        >
+                    </li>
+                {{ else }}
+                    {{/* Other Page Link */}}
+                    <li class="pagination-link">
+                        <a
+                            href="{{ .URL }}"
+                            aria-label="Go to Page {{ .PageNumber }}"
+                            class="hidden rounded border border-gray-300 px-3 py-1 text-sm text-blue-600 hover:bg-gray-100 hover:text-blue-800 md:inline-block md:px-4 md:py-2 md:text-base"
+                        >
+                            {{/* Hide intermediate numbers on small screens */}}
+                            {{ .PageNumber }}
+                        </a>
+                    </li>
+                {{ end }}
+            {{ end }}
+
+            {{/* Add Ellipsis if needed - More complex logic */}}
+            {{/* Example: You might want Hugo's internal pagination template or custom logic here */}}
+            {{/* to show only a few page numbers with ellipsis (...) */}}
+
+            {{/* Next Page Link */}}
+            {{ if $paginator.HasNext }}
+                <li class="pagination-next">
+                    <a
+                        href="{{ $paginator.Next.URL }}"
+                        rel="next"
+                        aria-label="Next Page"
+                        class="inline-block rounded border border-gray-300 px-3 py-1 text-sm text-blue-600 hover:bg-gray-100 hover:text-blue-800 md:px-4 md:py-2 md:text-base"
+                    >
+                        <span class="hidden sm:inline">Next</span> &raquo;
+                    </a>
+                </li>
+            {{ else }}
+                <li class="pagination-next" aria-disabled="true">
+                    <span
+                        class="inline-block cursor-not-allowed rounded border border-gray-200 px-3 py-1 text-sm text-gray-400 md:px-4 md:py-2 md:text-base"
+                    >
+                        <span class="hidden sm:inline">Next</span> &raquo;
+                    </span>
+                </li>
+            {{ end }}
+        </ul>
+    </nav>
+{{ end }}

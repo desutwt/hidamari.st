@@ -1,0 +1,19 @@
+{{ $userName := .userName }}
+{{ $profileImageUrl := .profileImageUrl }}
+
+<div class="relative overflow-hidden bg-white rounded-t-sm">
+  {{/* Profile Picture and Name Container */}}
+  <div class="flex items-start gap-4 p-4 sm:p-6">
+    {{/* Profile Picture */}}
+    <img class="h-20 w-20 sm:h-24 sm:w-24 object-cover"
+         src="{{ $profileImageUrl }}"
+         alt="{{ $userName }} Profile Picture">
+
+    {{/* Name Container */}}
+    <div class="mt-2">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-900">
+        {{ $userName }}
+      </h2>
+    </div>
+  </div>
+</div>

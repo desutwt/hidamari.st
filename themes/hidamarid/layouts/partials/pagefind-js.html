@@ -1,0 +1,65 @@
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    // --- Configuration ---
+    const currentPagePermalink = '{{ .RelPermalink }}';
+    const searchTabLinkId = 'search-tab-link';
+    const timelineId = 'timeline';
+    const searchWrapperId = 'search-ui-wrapper';
+    const searchContainerId = 'search-ui-container';
+    const activeTabClass = 'border-b';
+    const allTabSelector = '[data-tab-link]'; // Selector for all tab links
+
+    // --- Get Elements ---
+    const searchTabLink = document.getElementById(searchTabLinkId);
+    const timelineDiv = document.getElementById(timelineId);
+    const searchWrapperDiv = document.getElementById(searchWrapperId);
+    const allTabLinks = document.querySelectorAll(allTabSelector);
+
+    // --- State ---
+    let isSearchActive = false; // Track if search UI is currently shown
+    let pagefindInstance = null; // Store the Pagefind instance once created
+
+    searchTabLink.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        // Toggle the state
+        isSearchActive = !isSearchActive;
+
+        // Remove active class from ALL tabs first
+        allTabLinks.forEach(link => link.classList.remove(activeTabClass));
+
+        if (isSearchActive) {
+            if (timelineDiv) {
+                timelineDiv.style.display = 'none'; // Hide timeline
+            }
+            searchWrapperDiv.style.display = 'block';
+            searchTabLink.classList.add(activeTabClass);
+
+            if (!pagefindInstance) {
+                var script = document.createElement('script');
+                script.src = "/pagefind/pagefind-ui.js";
+                script.onload = function () {
+                    pagefindInstance = new PagefindUI({
+                        element: `#${searchContainerId}`, // Target the inner container
+                        showSubResults: false,
+                        excerptLength: 12,
+                        showImages: false,
+                    });
+                };
+                document.body.appendChild(script);
+            }
+        } else {
+            searchWrapperDiv.style.display = 'none';
+            searchTabLink.classList.remove(activeTabClass);
+            timelineDiv.style.display = '';
+            // Activate underline
+            allTabLinks.forEach(link => {
+                // Check if this link is NOT the search tab and its href matches the current page
+                if (link.id !== searchTabLinkId && link.getAttribute('href') === currentPagePermalink) {
+                    link.classList.add(activeTabClass);
+                }
+            });
+        }
+    });
+})
+</script>

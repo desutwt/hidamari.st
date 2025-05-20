@@ -1,0 +1,32 @@
+<div class="relative overflow-hidden bg-white border-t border-t-gray-500">
+  <div class="flex">
+    <!-- Everything Tab -->
+    <a
+      href="/"
+      class="flex-1 py-2 text-center text-gray-900 hover:bg-gray-200 transition-colors{{ if eq .RelPermalink `/` }} border-b border-b-gray-500 {{ end }}"
+      data-tab-link
+    >
+      Everything
+    </a>
+
+    <!-- Articles Tab -->
+    <a
+      href="/articles/"
+      class="flex-1 py-2 text-center text-gray-900 hover:bg-gray-200 transition-colors{{ if eq .RelPermalink `/articles/` }} border-b border-b-gray-500 {{ end }}"
+      data-tab-link
+    >
+      Articles
+    </a>
+
+    <a
+      href="/search"
+      class="flex-1 py-2 text-center text-gray-900 hover:bg-gray-200 transition-colors border-b-gray-500"
+      data-tab-link
+      id="search-tab-link"
+    >
+        Search
+    </a>
+
+    {{ partial "pagefind-js" . }}
+  </div>
+</div>

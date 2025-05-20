@@ -1,0 +1,14 @@
+<div id="search-ui-wrapper" style="display:none;" class="mt-4 p-4">
+    <div id="search-ui-container">
+
+    </div>
+</div>
+<div id="timeline">
+    {{ range .Pages }}
+        {{ partial "timeline-post" . }}
+    {{ end }}
+
+    {{ if not .Pages }}
+        <p class="text-gray-600">No posts yet.</p>
+    {{ end }}
+</div>
